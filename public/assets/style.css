@@ -1,0 +1,24 @@
+nav a{
+  font-size: 18px;
+  font-weight: bold;
+}
+nav{
+
+  background-color: #e3f2fd;
+}
+
+#home .card{
+  font-size: 20px;
+  height: 100px;
+  text-align: center;
+}
+
+#home .card i{
+  font-size: 50px;
+}
+#home .card span{
+  margin-left: 1rem;
+}
+.navbar-brand{
+  font-size: 30px;
+}
