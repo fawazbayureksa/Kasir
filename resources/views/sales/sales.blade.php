@@ -53,9 +53,9 @@
                                         </div>
                                         <div class="col-sm-2">
                                             <span class="input-group-btn">
-                                                <Button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-sm">
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                     <i class="fa fa-search"></i>
-                                                </Button>
+                                                  </button>
                                             </span>
                                         </div>
                                     </div>
@@ -177,41 +177,62 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modal-sm">
+    <div class="modal fade" id="exampleModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Select Product Item</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h4 class="modal-title">Pili Item</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body table-responsive">
                     <table class="table table-bordered" id="example2" style="width: 100%;">
                         <thead>
                             <tr>
-                                <th>Barcode</th>
+                                <th>No</th>
                                 <th>Name</th>
-                                <th>Price</th>
+                                <th>Harga</th>
                                 <th>Stock</th>
                                 <th><i class="fa fa-cog"></i></th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            @foreach ($data as $d)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$d->name}}</td>
+                                <td>Rp. {{number_format($d->harga_jual)}}</td>
+                                <td>{{$d->stok}}</td>
+                                <td> <button class="btn btn-info btn-sm" id="select" data-id="<?= $d->id ?>" data-name="<?= $d->name ?>" data-price="<?= $d->harga_jual ?>" data-stock="<?= $d->stok ?>">
+                                    <i class="fa fa-check"></i> Pilih
+                                </button></td>
+                            </tr>
+                            @endforeach
                         </tbody>
 
                     </table>
                 </div>
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary">Pilih</button>
                 </div>
             </div>
-            <!-- /.modal-content -->
+
         </div>
-        <!-- /.modal-dialog -->
+
     </div>
 
 </section>
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">></script> --}}
+<script>
+    
+    $(document).on('click', '#select', function() {
+        $('#item_id').val($(this).data('id'));
+        $('#barcode').val($(this).data('name'));
+        $('#price').val($(this).data('price'));
+        $('#stock').val($(this).data('stock'));
+        $('#exampleModal').click();
+
+        
+    })
+</script>
 @endsection

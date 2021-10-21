@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\SalesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,9 +27,7 @@ Route::get('/home', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
-Route::get('/sales', function () {
-    return view('sales/sales');
-});
+Route::get('/sales', [SalesController::class, 'index']);
 
 Route::resource('category', CategoryController::class);
 Route::resource('unit', UnitController::class);

@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/style.css')}}">
+  <script src="{{asset('node_modules/jquery/dist/jquery.min.js')}}"></script>
+
   
   <title>Kasir</title>
 </head>

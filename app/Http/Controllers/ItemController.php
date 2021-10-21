@@ -23,9 +23,9 @@ class ItemController extends Controller
         ->get();
 
         return view('item/item', ['data' => $dataitem]);
-
         
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -127,5 +127,8 @@ class ItemController extends Controller
         $item->delete();
 
         return redirect()->route('item.index')->with('status','Data berhasil dihapus');
+    }
+    public function cariItem(){
+
     }
 }
