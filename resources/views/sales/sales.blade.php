@@ -42,16 +42,16 @@
                             <form action="" method="POST">
                                 <div class="form-group input-group mb-2">
                                     <div class="row">
-                                        <div class="col-sm-4">
-                                            <Label for="barcode">Item</Label>
+                                        <div class="col-sm-3">
+                                            <Label for="name">Item</Label>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="hidden" name="item_id" id="item_id">
-                                            <input type="hidden" name="price" id="price">
-                                            <input type="hidden" name="stock" id="stock">
-                                            <input type="text" id="barcode" name="" class="form-control" autofocus autocomplete="off">
+                                            <input type="hidden" name="id" id="item_id">
+                                            <input type="hidden" name="harga_jual" id="harga_jual">
+                                            <input type="hidden" name="stok" id="stok">
+                                            <input type="text" id="name" name="" class="form-control" autofocus autocomplete="off">
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-3">
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                     <i class="fa fa-search"></i>
@@ -62,17 +62,17 @@
                                 </div>
                                 <div class="form-group mb-2">
                                     <div class="row">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-3">
                                             <Label>Jumlah</Label>
                                         </div>
-                                        <div class="col-sm-8">
-                                            <input type="number" name="qty" id="qty" min="1" class="form-control">
+                                        <div class="col-sm-4">
+                                            <input type="number" name="jumlah" id="jumlah" min="1" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-4 offset-4">
+                                    <div class="row justify-content-end">
+                                        <div class="col-sm-4 ">
                                             <button type="button" name="add_cart" id="add_cart" class="btn btn-primary btn-flat"><i class="fa fa-shopping-cart"></i> Add </button>
                                         </div>
                                     </div>
@@ -119,7 +119,11 @@
                                 </tr>
                             </thead>
                             <tbody id="cart_table">
-                               
+                               <td></td>
+                               <td id="nama_item"></td>
+                               <td id="harga_item"></td>
+                               <td id="jumlah_pesan"></td>
+                               <td id="total_pesan"></td>
                             </tbody>
 
                         </table>
@@ -191,7 +195,7 @@
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Harga</th>
-                                <th>Stock</th>
+                                <th>stok</th>
                                 <th><i class="fa fa-cog"></i></th>
                             </tr>
                         </thead>
@@ -208,7 +212,6 @@
                             </tr>
                             @endforeach
                         </tbody>
-
                     </table>
                 </div>
                 <div class="modal-footer justify-content-between">
@@ -222,17 +225,64 @@
     </div>
 
 </section>
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">></script> --}}
 <script>
     
     $(document).on('click', '#select', function() {
         $('#item_id').val($(this).data('id'));
-        $('#barcode').val($(this).data('name'));
-        $('#price').val($(this).data('price'));
-        $('#stock').val($(this).data('stock'));
+        $('#name').val($(this).data('name'));
+        $('#harga_jual').val($(this).data('price'));
+        $('#stok').val($(this).data('stock'));
         $('#exampleModal').click();
-
         
     })
+    $(document).on('click', '#add_cart', function() {
+        var id = $('#item_id').val()
+        var harga_jual = $('#harga_jual').val()
+        var stok = $('#stok').val()
+        var jumlah = $('#jumlah').val()
+        var name = $('#name').val()
+     
+        if (id == '') {
+            alert('Belum ada produk yang dipilih')
+            $('#name').focus()
+        }
+        else if (jumlah == '') {
+            alert('Masukkan Jumlah pesanan')
+            $('#jumlah').focus()
+        }
+        else if (stok < jumlah) {
+           alert('Stok tidak cukup')
+            $('#id').val('')
+            $('#name').val('')
+            $('#jumlah').val('')
+            $('#name').focus()   
+        } 
+        else{
+            //     $.ajax({
+            //     type: 'POST',
+            //     url: "{{route('sales.proses')}}",
+            //     data: {
+            //         'add_cart': true,
+            //         'name' : name,
+            //         'id': id,
+            //         'harga_jual': harga_jual,
+            //         'jumlah': jumlah
+            //     },
+            //     success:function(response){
+            //        console.log(response)
+            //     },
+            // })
+                // console.log(name)
+            $('#nama_item').html(name)
+            $('#jumlah_pesan').html(jumlah)
+            $('#harga_item').html(harga_jual)
+                
+            var total = harga_jual * jumlah
+
+            $('#total_pesan').html(total)
+
+        }
+    })
+
 </script>
 @endsection

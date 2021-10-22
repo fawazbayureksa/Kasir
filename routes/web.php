@@ -28,7 +28,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 Route::get('/sales', [SalesController::class, 'index']);
-
+Route::post('/sales',[SalesController::class,'proses'])->name('sales.proses');
 Route::resource('category', CategoryController::class);
 Route::resource('unit', UnitController::class);
 Route::resource('item', ItemController::class);
